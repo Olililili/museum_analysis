@@ -16,9 +16,7 @@ def correlate_population_visitors(museum_all_data_df: pd.DataFrame()) -> None:
     '''
     Correlate the city population and the influx of visitors.
 
-    :param
-        museum_all_data_df: a dataframe which contains all main character data of the museums
-
+    :param museum_all_data_df: a dataframe which contains all main character data of the museums
     :return: None
     '''
 
@@ -61,9 +59,7 @@ def prepare_train_test_set(museum_all_data_df: pd.DataFrame()):
     '''
     Prepare dataset for training and testing.
 
-    :param
-        museum_all_data_df: a dataframe which contains all main character data of the museums
-
+    :param museum_all_data_df: a dataframe which contains all main character data of the museums
     :return:
         x_train: training set for population
         x_test: testing set for population

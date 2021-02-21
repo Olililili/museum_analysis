@@ -13,8 +13,7 @@ def create_museum_dataframe() -> pd.DataFrame():
     '''
     Create museum dataframe which contains all museum characters.
 
-    :return:
-        museum_all_data_df: a dataframe which contains all character data of the museums
+    :return: museum_all_data_df: a dataframe which contains all character data of the museums
     '''
 
     wiki_links = fetch_most_visited_museum_list()
@@ -38,8 +37,7 @@ def fetch_most_visited_museum_list() -> list:
     '''
     Fetch museum Wikipedia links from main wikipedia page.
 
-    :return:
-        museum_wiki_pages: a list of Wikipedia links of the museums
+    :return: museum_wiki_pages: a list of Wikipedia links of the museums
     '''
 
     log.info('Fetching the most visited museum list from '
@@ -75,10 +73,8 @@ def most_visited_museum_to_dataframe(wiki_links: str) -> pd.DataFrame():
     '''
     Fetch museum basic info from the museum table on the main wikipedia page, and convert the data to a dataframe.
 
-    :param
-        wiki_links: a list of Wikipedia links of the museums
-    :return:
-        museum_all_data_df: a dataframe which contains basic museum info, such as name, city, visitors and wiki_link
+    :param wiki_links: a list of Wikipedia links of the museums
+    :return: museum_all_data_df: a dataframe which contains basic museum info, such as name, city, visitors and wiki_link
     '''
 
     df = pd.read_html(wikipedia.page(MOST_VISITED_MUSEUMS_PAGE_NAME).html())[0]
@@ -92,10 +88,8 @@ def fetch_museum_detail_dict(museum_wiki_page_name: str) -> dict:
     '''
     Fetch museum detail info from each museum wikipedia page.
 
-    :param
-        museum_wiki_page_name: String of Wikipedia link of the museum
-    :return:
-        museum_data: a dictionary of museum characters
+    :param museum_wiki_page_name: String of Wikipedia link of the museum
+    :return: museum_data: a dictionary of museum characters
     '''
 
     # Return empty dict if no wiki page link is found

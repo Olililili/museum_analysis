@@ -11,11 +11,8 @@ def add_city_population_to_museum(museum_all_data_df: pd.DataFrame()) -> pd.Data
     '''
     Add city, population and country to the main museum dataframe.
 
-    :param
-        museum_all_data_df: a dataframe which contains all main character data of the museums
-
-    :return:
-        museum_all_data_df: a dataframe which contains all main character, plus population and country
+    :param museum_all_data_df: a dataframe which contains all main character data of the museums
+    :return: museum_all_data_df: a dataframe which contains all main character, plus population and country
     '''
 
     world_cities_df = fetch_world_cities_df()
@@ -32,8 +29,7 @@ def fetch_world_cities_df() -> pd.DataFrame():
     '''
     Fetch city, coutry and population data from the world cities csv file
 
-    :return:
-        df: a dataframe which contains world city, country and population data
+    :return: df: a dataframe which contains world city, country and population data
     '''
 
     current_dir = os.path.dirname(__file__)

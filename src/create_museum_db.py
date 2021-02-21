@@ -15,9 +15,7 @@ def build_museum_db(museum_all_data_df: pd.DataFrame()) -> None:
     '''
     Build a database for museum character data.
 
-    :param
-        museum_all_data_df: a dataframe which contains all main character data of the museums
-
+    :param museum_all_data_df: a dataframe which contains all main character data of the museums
     :return: None
     '''
 
@@ -34,9 +32,7 @@ def prepare_df_for_db_creat(museum_all_data_df: pd.DataFrame()):
     '''
     Prepare dataframes for creating database tables.
 
-    :param
-        museum_all_data_df: a dataframe which contains all main character data of the museums
-
+    :param museum_all_data_df: a dataframe which contains all main character data of the museums
     :return:
         city_df_for_sql: a dataframe which contains all info for city table
         museum_df_for_sql: a dataframe which contains all info for museum table
@@ -77,10 +73,8 @@ def create_db(city_df_for_sql: pd.DataFrame(), museum_df_for_sql: pd.DataFrame()
     '''
     Create museum database.
 
-    :param
-        city_df_for_sql: a dataframe which contains all info for city table
-        museum_df_for_sql: a dataframe which contains all info for museum table
-
+    :param city_df_for_sql: a dataframe which contains all info for city table
+    :param museum_df_for_sql: a dataframe which contains all info for museum table
     :return: None
     '''
 

@@ -34,8 +34,7 @@ def fetch_museum_data():
     '''
     Fetch all museum data from wikipedia page.
 
-    :return:
-        museum_all_data_df: a dataframe which contains all main character data of the museums
+    :return: museum_all_data_df: a dataframe which contains all main character data of the museums
     '''
 
     museum_all_data_df = create_museum_dataframe()
@@ -49,9 +48,7 @@ def build_database(museum_all_data_df: pd.DataFrame()) -> pd.DataFrame():
     '''
     Build museum_analysis database.
 
-    :param
-        museum_all_data_df: a dataframe which contains all main character data of the museums
-
+    :param museum_all_data_df: a dataframe which contains all main character data of the museums
     :return: None
     '''
 
@@ -62,9 +59,7 @@ def correlate_population_and_influx_of_visitors(museum_all_data_df: pd.DataFrame
     '''
     Correlate city population and the influx of visitors of the museums.
 
-    :param
-        museum_all_data_df: a dataframe which contains all main character data of the museums
-
+    :param museum_all_data_df: a dataframe which contains all main character data of the museums
     :return: None
     '''
 
