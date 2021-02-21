@@ -1,7 +1,6 @@
 import numpy as np
 import pandas as pd
 
-
 from sklearn import metrics
 from sklearn.base import RegressorMixin
 from sklearn.linear_model import LinearRegression

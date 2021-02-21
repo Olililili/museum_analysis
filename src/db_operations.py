@@ -1,5 +1,6 @@
 import pandas as pd
 import sqlite3
+
 from sqlite3 import Cursor
 from src.log_handler import get_logger
 

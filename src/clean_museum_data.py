@@ -95,5 +95,5 @@ def one_hot_encoding_museum_type(values: pd.DataFrame()) -> Tuple[int, int, int,
     is_culture_museum = YesOrNo.Yes if 'culture' or 'archaeology' in value.lower() else YesOrNo.No
     is_science_museum = YesOrNo.Yes if 'science' in value.lower() else YesOrNo.No
 
-    return is_art_museum.value, is_history_museum.value, is_natural_museum.value\
+    return is_art_museum.value, is_history_museum.value, is_natural_museum.value \
         , is_culture_museum.value, is_science_museum.value
