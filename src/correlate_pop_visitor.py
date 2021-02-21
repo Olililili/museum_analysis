@@ -96,6 +96,9 @@ def calculate_coefficient_and_intercept(model: RegressorMixin) -> Tuple[float, f
 def calculate_pearson_correlation_coefficient(linear_reg_coef: float, museum_all_data_df: float) -> float:
     x1 = museum_all_data_df['population']
     y1 = museum_all_data_df['visitors']
+
+    # Calculate the correlation coefficient by multiplying the slope of the regression line by the standard
+    # deviation of X and then divide by the standard deviation of Y.
     correlation_coefficient = linear_reg_coef * np.std(x1) / np.std(y1)
 
     return correlation_coefficient
