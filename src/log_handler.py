@@ -1,7 +1,7 @@
 import logging
 
 
-def get_logger():
+def get_logger() -> logging:
     log = logging.getLogger()
 
     console = logging.StreamHandler()

@@ -1,14 +1,27 @@
 import numpy as np
+import pandas as pd
+
 
 from sklearn import metrics
+from sklearn.base import RegressorMixin
 from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import train_test_split
 from src.log_handler import get_logger
+from typing import Tuple
 
 log = get_logger()
 
 
-def correlate_population_visitors(museum_all_data_df):
+def correlate_population_visitors(museum_all_data_df: pd.DataFrame()) -> None:
+    '''
+    Correlate the city population and the influx of visitors.
+
+    :param
+        museum_all_data_df: a dataframe which contains all main character data of the museums
+
+    :return: None
+    '''
+
     # Split the dataset into traning dataset(70%) and test dataset(30%) randomly
     log.info('Start to prepare training and testing dataset for linear regression model... ')
     log.info('Splitting the dataset into 70% training set and 30% testing set...')
@@ -44,7 +57,20 @@ def correlate_population_visitors(museum_all_data_df):
              f'Root mean squared error: {root_mean_squared_error}')
 
 
-def prepare_train_test_set(museum_all_data_df):
+def prepare_train_test_set(museum_all_data_df: pd.DataFrame()):
+    '''
+    Prepare dataset for training and testing.
+
+    :param
+        museum_all_data_df: a dataframe which contains all main character data of the museums
+
+    :return:
+        x_train: training set for population
+        x_test: testing set for population
+        y_train: training set for visitors
+        y_test: testing set for visitors
+    '''
+
     x = museum_all_data_df[['population']]
     y = museum_all_data_df[['visitors']]
 
@@ -53,26 +79,26 @@ def prepare_train_test_set(museum_all_data_df):
     return x_train, x_test, y_train, y_test
 
 
-def build_linear_reg_model(x_train, y_train):
+def build_linear_reg_model(x_train: pd.DataFrame(), y_train: pd.DataFrame()) -> RegressorMixin:
     model = LinearRegression()
     model.fit(x_train, y_train)
 
     return model
 
 
-def model_prediction(model, x_test):
+def model_prediction(model: RegressorMixin, x_test: pd.DataFrame()) -> RegressorMixin:
     predictions = model.predict(x_test)
     return predictions
 
 
-def calculate_coefficient_and_intercept(model):
+def calculate_coefficient_and_intercept(model: RegressorMixin) -> Tuple[float, float]:
     linear_regression_coefficient = model.coef_[0][0]
     linear_regression_intercept = model.intercept_[0]
 
     return linear_regression_coefficient, linear_regression_intercept
 
 
-def calculate_pearson_correlation_coefficient(linear_reg_coef, museum_all_data_df):
+def calculate_pearson_correlation_coefficient(linear_reg_coef: float, museum_all_data_df: float) -> float:
     x1 = museum_all_data_df['population']
     y1 = museum_all_data_df['visitors']
     correlation_coefficient = linear_reg_coef * np.std(x1) / np.std(y1)
@@ -80,7 +106,7 @@ def calculate_pearson_correlation_coefficient(linear_reg_coef, museum_all_data_d
     return correlation_coefficient
 
 
-def calculate_performance_metrics(y_test, predictions):
+def calculate_performance_metrics(y_test: pd.DataFrame(), predictions: RegressorMixin) -> Tuple[float, float, float]:
     mean_absolute_error = metrics.mean_absolute_error(y_test, predictions)
     mean_squared_error = metrics.mean_squared_error(y_test, predictions)
     root_mean_squared_error = np.sqrt(metrics.mean_squared_error(y_test, predictions))

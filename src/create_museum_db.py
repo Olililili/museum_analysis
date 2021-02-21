@@ -11,7 +11,16 @@ CITY_TABLE_NAME = 'city'
 MUSEUM_TABLE_NAME = 'museum'
 
 
-def build_museum_db(museum_all_data_df):
+def build_museum_db(museum_all_data_df: pd.DataFrame()) -> None:
+    '''
+    Build a database for museum character data.
+
+    :param
+        museum_all_data_df: a dataframe which contains all main character data of the museums
+
+    :return: None
+    '''
+
     log.info('Preparing dataframes for creating db tables...')
     city_df_for_sql, museum_df_for_sql = prepare_df_for_db_creat(museum_all_data_df)
     log.info('Successfully created dataframes for city and museum tables.')
@@ -21,7 +30,18 @@ def build_museum_db(museum_all_data_df):
     log.info('Successfully created museum_analysis db and closed db connection.')
 
 
-def prepare_df_for_db_creat(museum_all_data_df):
+def prepare_df_for_db_creat(museum_all_data_df: pd.DataFrame()):
+    '''
+    Prepare dataframes for creating database tables.
+
+    :param
+        museum_all_data_df: a dataframe which contains all main character data of the museums
+
+    :return:
+        city_df_for_sql: a dataframe which contains all info for city table
+        museum_df_for_sql: a dataframe which contains all info for museum table
+    '''
+
     city_df_for_sql = museum_all_data_df[['city', 'country', 'population']].drop_duplicates('city')
     city_df_for_sql['city_id'] = range(1, len(city_df_for_sql) + 1)
 
@@ -53,7 +73,17 @@ def prepare_df_for_db_creat(museum_all_data_df):
     return city_df_for_sql, museum_df_for_sql
 
 
-def create_db(city_df_for_sql, museum_df_for_sql):
+def create_db(city_df_for_sql: pd.DataFrame(), museum_df_for_sql: pd.DataFrame()) -> None:
+    '''
+    Create museum database.
+
+    :param
+        city_df_for_sql: a dataframe which contains all info for city table
+        museum_df_for_sql: a dataframe which contains all info for museum table
+
+    :return: None
+    '''
+
     db = DatabaseOperations(DATABASE_PATH)
 
     db.execute(CREATE_CITY_TABLE_SQL)

@@ -1,11 +1,25 @@
 import math
+import pandas as pd
 import re
+
+from src.onehot_enum import YesOrNo;
+from typing import Tuple
+from typing import Union
 from src.log_handler import get_logger
 
 log = get_logger()
 
 
-def clean_museum_character_data(df):
+def clean_museum_character_data(df: pd.DataFrame()) -> pd.DataFrame():
+    '''
+    Clean museum characters and only leave main characters for analysis.
+
+    :param
+        df: a dataframe which contains all museums character data
+    :return:
+        df: a dataframe which contains all main character data of the museums
+    '''
+
     log.info('Start to clean museum character data...')
     log.info('Reducing columns which has more than 90% NaN values...')
     df = reduce_columns_with_most_nan(df)
@@ -30,14 +44,32 @@ def clean_museum_character_data(df):
     return df
 
 
-def reduce_columns_with_most_nan(df):
+def reduce_columns_with_most_nan(df: pd.DataFrame()) -> pd.DataFrame():
+    '''
+    Reduce columns in the dataframe which contains more than 90% of NaN value
+
+    :param
+        df: a dataframe which contains all museums character data
+    :return:
+        df: a dataframe which contains all main character data of the museums
+    '''
+
     significant_columns = (df.isna().sum() / len(df)).where(lambda x: x < 0.9).dropna().keys()
     df = df[significant_columns]
 
     return df
 
 
-def clean_established(value):
+def clean_established(value: Union[int, str]) -> str:
+    '''
+    Clean values in Established column, only keep the value as a year in between of 1000 to 2999.
+
+    :param
+        value: an Integer or a String value from the Established column
+    :return:
+        A String of the value as a year
+    '''
+
     if not type(value) == str and math.isnan(value):
         return value
 
@@ -45,15 +77,29 @@ def clean_established(value):
     return str(re.match(r'.*([1-2][0-9]{3})', value).group(1))
 
 
-def one_hot_encoding_museum_type(values):
+def one_hot_encoding_museum_type(values: pd.DataFrame()) -> Tuple[YesOrNo, YesOrNo, YesOrNo, YesOrNo, YesOrNo]:
+    '''
+    Apply one hot encoding for Type column, separate the Type column to 5 different columns:
+    is_art_museum, is_history_museum, is_natural_museum, is_culture_museum, is_science_museum
+
+    :param
+        values: a dataframe which contains the series of Type column
+    :return:
+        is_art_museum: whether the museum is an art museum
+        is_history_museum: whether the museum is a history museum
+        is_natural_museum: whether the museum is a natural museum
+        is_culture_museum: whether the museum is a culture museum
+        is_science_museum: whether the museum is a science museum
+    '''
+
     value = values['Type']
     if not type(value) == str and math.isnan(value):
-        return 0, 0, 0, 0, 0
+        return YesOrNo.No, YesOrNo.No, YesOrNo.No, YesOrNo.No, YesOrNo.No
 
-    is_art_museum = 1 if 'art' in value.lower() else 0
-    is_history_museum = 1 if 'history' in value.lower() else 0
-    is_natural_museum = 1 if 'natural' in value.lower() else 0
-    is_culture_museum = 1 if 'culture' or 'archaeology' in value.lower() else 0
-    is_science_museum = 1 if 'science' in value.lower() else 0
+    is_art_museum = YesOrNo.Yes if 'art' in value.lower() else YesOrNo.No
+    is_history_museum = YesOrNo.Yes if 'history' in value.lower() else YesOrNo.No
+    is_natural_museum = YesOrNo.Yes if 'natural' in value.lower() else YesOrNo.No
+    is_culture_museum = YesOrNo.Yes if 'culture' or 'archaeology' in value.lower() else YesOrNo.No
+    is_science_museum = YesOrNo.Yes if 'science' in value.lower() else YesOrNo.No
 
     return is_art_museum, is_history_museum, is_natural_museum, is_culture_museum, is_science_museum

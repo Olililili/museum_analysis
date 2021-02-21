@@ -1,14 +1,23 @@
 import os
 import pandas as pd
 
-
 from src.log_handler import get_logger
 
 log = get_logger()
 WORLD_CITIES_POPULATION_FILE_PATH = '../doc/worldcities.csv'
 
 
-def add_city_population_to_museum(museum_all_data_df):
+def add_city_population_to_museum(museum_all_data_df: pd.DataFrame()) -> pd.DataFrame():
+    '''
+    Add city, population and country to the main museum dataframe.
+
+    :param
+        museum_all_data_df: a dataframe which contains all main character data of the museums
+
+    :return:
+        museum_all_data_df: a dataframe which contains all main character, plus population and country
+    '''
+
     world_cities_df = fetch_world_cities_df()
 
     log.info('Merging museum dataframe and population dataframe...')
@@ -19,7 +28,14 @@ def add_city_population_to_museum(museum_all_data_df):
     return museum_all_data_df
 
 
-def fetch_world_cities_df():
+def fetch_world_cities_df() -> pd.DataFrame():
+    '''
+    Fetch city, coutry and population data from the world cities csv file
+
+    :return:
+        df: a dataframe which contains world city, country and population data
+    '''
+
     current_dir = os.path.dirname(__file__)
     world_cities_population_file = os.path.join(current_dir, WORLD_CITIES_POPULATION_FILE_PATH)
 

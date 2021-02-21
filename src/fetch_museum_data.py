@@ -9,11 +9,18 @@ log = get_logger()
 MOST_VISITED_MUSEUMS_PAGE_NAME = 'List_of_most-visited_museums'
 
 
-def create_museum_dataframe():
+def create_museum_dataframe() -> pd.DataFrame():
+    '''
+    Create museum dataframe which contains all museum characters.
+
+    :return:
+        museum_all_data_df: a dataframe which contains all character data of the museums
+    '''
+
     wiki_links = fetch_most_visited_museum_list()
     museums_df = most_visited_museum_to_dataframe(wiki_links)
 
-    log.info('Fetching museum characters from wikipedia...')
+    log.info('Fetching museum characters from Wikipedia...')
     all_museums_detail = []
     for museum_wiki_page_name in museums_df['wiki_link']:
         museum_detail = fetch_museum_detail_dict(museum_wiki_page_name)
@@ -27,15 +34,22 @@ def create_museum_dataframe():
     return museum_all_data_df
 
 
-def fetch_most_visited_museum_list():
+def fetch_most_visited_museum_list() -> list:
+    '''
+    Fetch museum Wikipedia links from main wikipedia page.
+
+    :return:
+        museum_wiki_pages: a list of Wikipedia links of the museums
+    '''
+
     log.info('Fetching the most visited museum list from '
              'https://en.wikipedia.org/wiki/List_of_most_visited_museums.')
     try:
         # Get wikipedia page html source
         soup = bs4.BeautifulSoup(wikipedia.page(MOST_VISITED_MUSEUMS_PAGE_NAME).html(), 'lxml')
-        log.info(f'Successfully opened wikipedia page {MOST_VISITED_MUSEUMS_PAGE_NAME}.')
+        log.info(f'Successfully opened Wikipedia page {MOST_VISITED_MUSEUMS_PAGE_NAME}.')
     except wikipedia.exceptions.PageError as e:
-        log.error(f'Error while opening wikipedia page {MOST_VISITED_MUSEUMS_PAGE_NAME}: {e}.')
+        log.error(f'Error while opening Wikipedia page {MOST_VISITED_MUSEUMS_PAGE_NAME}: {e}.')
 
     museum_wiki_pages = []
     for each_museum_info in soup.findAll('tr'):
@@ -52,12 +66,21 @@ def fetch_most_visited_museum_list():
 
         museum_wiki_pages.append(urllib.parse.unquote(href).split('/Wiki/')[-1])
 
-    log.info(f'Finished fetching all wikipedia links for all museums from {MOST_VISITED_MUSEUMS_PAGE_NAME}')
+    log.info(f'Finished fetching all Wikipedia links for all museums from {MOST_VISITED_MUSEUMS_PAGE_NAME}')
 
     return museum_wiki_pages
 
 
-def most_visited_museum_to_dataframe(wiki_links):
+def most_visited_museum_to_dataframe(wiki_links: str) -> pd.DataFrame():
+    '''
+    Fetch museum basic info from the museum table on the main wikipedia page, and convert the data to a dataframe.
+
+    :param
+        wiki_links: a list of Wikipedia links of the museums
+    :return:
+        museum_all_data_df: a dataframe which contains basic museum info, such as name, city, visitors and wiki_link
+    '''
+
     df = pd.read_html(wikipedia.page(MOST_VISITED_MUSEUMS_PAGE_NAME).html())[0]
     df.columns = ['name', 'city', 'visitors', 'year_reported']
     df = df[['name', 'city', 'visitors']]
@@ -65,7 +88,16 @@ def most_visited_museum_to_dataframe(wiki_links):
     return df
 
 
-def fetch_museum_detail_dict(museum_wiki_page_name):
+def fetch_museum_detail_dict(museum_wiki_page_name: str) -> dict:
+    '''
+    Fetch museum detail info from each museum wikipedia page.
+
+    :param
+        museum_wiki_page_name: String of Wikipedia link of the museum
+    :return:
+        museum_data: a dictionary of museum characters
+    '''
+
     # Return empty dict if no wiki page link is found
     if museum_wiki_page_name is None:
         return {}
@@ -74,7 +106,7 @@ def fetch_museum_detail_dict(museum_wiki_page_name):
         # Get wikipedia page html source
         soup = bs4.BeautifulSoup(wikipedia.page(museum_wiki_page_name).html(), 'lxml')
     except wikipedia.exceptions.PageError as e:
-        log.error(f'Error while opening wikipedia page {museum_wiki_page_name}: {e}')
+        log.error(f'Error while opening Wikipedia page {museum_wiki_page_name}: {e}')
 
     # info_table is the table on the right side of the page which contains museum character info
     info_table = soup.find("table", {"class": "infobox vcard"})
