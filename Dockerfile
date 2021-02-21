@@ -9,11 +9,11 @@ EXPOSE 5000
 
 WORKDIR /museum_analysis
 
-COPY ./requirements.txt .
+COPY ./requirements.txt /museum_analysis
 
 RUN pip3 install -r requirements.txt
 
-COPY . ./
+COPY . /museum_analysis
 
 ENTRYPOINT ["python3"]
 
