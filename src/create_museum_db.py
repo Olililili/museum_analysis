@@ -2,13 +2,23 @@ import pandas as pd
 
 from src.db_operations import DatabaseOperations
 from src.log_handler import get_logger
-from src.queries import CREATE_CITY_TABLE_SQL
-from src.queries import CREATE_MUSEUM_TABLE_SQL
 
 log = get_logger()
 DATABASE_PATH = 'museum_analysis.db'
 CITY_TABLE_NAME = 'city'
 MUSEUM_TABLE_NAME = 'museum'
+
+CREATE_CITY_TABLE_SQL = '''CREATE TABLE city (
+  city_id INTEGER PRIMARY KEY, city TEXT, country TEXT, population NUMBER);'''
+
+CREATE_MUSEUM_TABLE_SQL = '''CREATE TABLE museum (
+  id INTEGER PRIMARY KEY, name TEXT, city_id INTEGER, visitors NUMBER, 
+  wiki_link TEXT, location TEXT, latitude NUMBER, longitude NUMBER, 
+  collection_size TEXT, visitors_rank TEXT, director TEXT, 
+  public_transit_access TEXT, website TEXT, architect TEXT, 
+  established_year TEXT, is_art_museum INTEGER, is_history_museum INTEGER, 
+  is_natural_museum INTEGER, is_culture_museum INTEGER, is_science_museum INTEGER,
+  FOREIGN KEY(city_id) REFERENCES city(id));'''
 
 
 def build_museum_db(museum_all_data_df: pd.DataFrame()) -> None:

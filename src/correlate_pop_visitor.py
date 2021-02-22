@@ -70,14 +70,12 @@ def prepare_train_test_set(museum_all_data_df: pd.DataFrame()):
     y = museum_all_data_df[['visitors']]
 
     x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.3)
-
     return x_train, x_test, y_train, y_test
 
 
 def build_linear_reg_model(x_train: pd.DataFrame(), y_train: pd.DataFrame()) -> RegressorMixin:
     model = LinearRegression()
     model.fit(x_train, y_train)
-
     return model
 
 
@@ -89,7 +87,6 @@ def model_prediction(model: RegressorMixin, x_test: pd.DataFrame()) -> Regressor
 def calculate_coefficient_and_intercept(model: RegressorMixin) -> Tuple[float, float]:
     linear_regression_coefficient = model.coef_[0][0]
     linear_regression_intercept = model.intercept_[0]
-
     return linear_regression_coefficient, linear_regression_intercept
 
 
@@ -100,7 +97,6 @@ def calculate_pearson_correlation_coefficient(linear_reg_coef: float, museum_all
     # Calculate the correlation coefficient by multiplying the slope of the regression line by the standard
     # deviation of X and then divide by the standard deviation of Y.
     correlation_coefficient = linear_reg_coef * np.std(x1) / np.std(y1)
-
     return correlation_coefficient
 
 
@@ -108,5 +104,4 @@ def calculate_performance_metrics(y_test: pd.DataFrame(), predictions: Regressor
     mean_absolute_error = metrics.mean_absolute_error(y_test, predictions)
     mean_squared_error = metrics.mean_squared_error(y_test, predictions)
     root_mean_squared_error = np.sqrt(metrics.mean_squared_error(y_test, predictions))
-
     return mean_absolute_error, mean_squared_error, root_mean_squared_error

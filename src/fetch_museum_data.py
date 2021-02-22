@@ -65,7 +65,6 @@ def fetch_most_visited_museum_list() -> list:
         museum_wiki_pages.append(urllib.parse.unquote(href).split('/Wiki/')[-1])
 
     log.info(f'Finished fetching all Wikipedia links for all museums from {MOST_VISITED_MUSEUMS_PAGE_NAME}')
-
     return museum_wiki_pages
 
 

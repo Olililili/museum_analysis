@@ -21,13 +21,12 @@ def add_city_population_to_museum(museum_all_data_df: pd.DataFrame()) -> pd.Data
     museum_all_data_df = pd.merge(left=museum_all_data_df, right=world_cities_df, how='left',
                                   left_on=['city'], right_on=['city'])
     log.info('Successfully added population and country to museum dataframe.')
-
     return museum_all_data_df
 
 
 def fetch_world_cities_df() -> pd.DataFrame():
     '''
-    Fetch city, coutry and population data from the world cities csv file
+    Fetch city, coutry and population data from the world cities csv file.
 
     :return: df: a dataframe which contains world city, country and population data
     '''
@@ -54,5 +53,4 @@ def fetch_world_cities_df() -> pd.DataFrame():
     df['city'] = df['city'].replace("Xi’an", "Xi'an")
 
     log.info(f'Successfully read csv file {WORLD_CITIES_POPULATION_FILE_PATH} and saved the values to dataframe.')
-
     return df

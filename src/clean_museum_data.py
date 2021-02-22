@@ -3,8 +3,7 @@ import pandas as pd
 import re
 
 from src.onehot_enum import YesOrNo;
-from typing import Tuple
-from typing import Union
+from typing import Tuple, Union
 from src.log_handler import get_logger
 
 log = get_logger()
@@ -38,7 +37,6 @@ def clean_museum_character_data(df: pd.DataFrame()) -> pd.DataFrame():
     df = df.drop('Type', axis=1)
 
     log.info('Successfully finished museum character data cleaning.')
-
     return df
 
 
@@ -52,7 +50,6 @@ def reduce_columns_with_most_nan(df: pd.DataFrame()) -> pd.DataFrame():
 
     significant_columns = (df.isna().sum() / len(df)).where(lambda x: x < 0.9).dropna().keys()
     df = df[significant_columns]
-
     return df
 
 
@@ -94,6 +91,5 @@ def one_hot_encoding_museum_type(values: pd.DataFrame()) -> Tuple[int, int, int,
     is_natural_museum = YesOrNo.Yes if 'natural' in value.lower() else YesOrNo.No
     is_culture_museum = YesOrNo.Yes if 'culture' or 'archaeology' in value.lower() else YesOrNo.No
     is_science_museum = YesOrNo.Yes if 'science' in value.lower() else YesOrNo.No
-
     return is_art_museum.value, is_history_museum.value, is_natural_museum.value \
         , is_culture_museum.value, is_science_museum.value

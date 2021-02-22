@@ -10,26 +10,6 @@ from src.log_handler import get_logger
 log = get_logger()
 
 
-def main():
-    '''
-    Main function of museum_analysis.
-
-    :return: None
-    '''
-
-    log.info('Start to fetch museum data...')
-    museum_all_data_df = fetch_museum_data()
-    log.info('Finished fetching museum data.')
-
-    log.info('Start to build museum db...')
-    build_database(museum_all_data_df)
-    log.info('Finished building museum db.')
-
-    log.info('Start to correlate city population and influx of visitors...')
-    correlate_population_and_influx_of_visitors(museum_all_data_df)
-    log.info('Finished correlating city population and influx of visitors.')
-
-
 def fetch_museum_data():
     '''
     Fetch all museum data from wikipedia page.
@@ -40,7 +20,6 @@ def fetch_museum_data():
     museum_all_data_df = create_museum_dataframe()
     museum_all_data_df = clean_museum_character_data(museum_all_data_df)
     museum_all_data_df = add_city_population_to_museum(museum_all_data_df)
-
     return museum_all_data_df
 
 
@@ -64,6 +43,26 @@ def correlate_population_and_influx_of_visitors(museum_all_data_df: pd.DataFrame
     '''
 
     correlate_population_visitors(museum_all_data_df)
+
+
+def main():
+    '''
+    Main function of museum_analysis.
+
+    :return: None
+    '''
+
+    log.info('Start to fetch museum data...')
+    museum_all_data_df = fetch_museum_data()
+    log.info('Finished fetching museum data.')
+
+    log.info('Start to build museum db...')
+    build_database(museum_all_data_df)
+    log.info('Finished building museum db.')
+
+    log.info('Start to correlate city population and influx of visitors...')
+    correlate_population_and_influx_of_visitors(museum_all_data_df)
+    log.info('Finished correlating city population and influx of visitors.')
 
 
 if __name__ == '__main__':
