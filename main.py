@@ -10,7 +10,7 @@ from src.log_handler import get_logger
 log = get_logger()
 
 
-def fetch_museum_data():
+def fetch_museum_data() -> pd.DataFrame():
     '''
     Fetch all museum data from wikipedia page.
 
