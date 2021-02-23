@@ -52,17 +52,17 @@ def fetch_most_visited_museum_list() -> list:
     museum_wiki_pages = []
     for each_museum_info in soup.findAll('tr'):
 
-        href = each_museum_info.find('a', href=True)['href'].title()
+        href = each_museum_info.find('a', href=True)['href']
 
-        if href == '#Cite_Note-13':
+        if href == '#cite_note-13':
             continue
 
-        if 'Redlink' in href:
+        if 'redlink' in href:
             log.info(f'Redlink found in {href}, add None to the museum info.')
             museum_wiki_pages.append(None)
             continue
 
-        museum_wiki_pages.append(urllib.parse.unquote(href).split('/Wiki/')[-1])
+        museum_wiki_pages.append(urllib.parse.unquote(href).split('/wiki/')[-1])
 
     log.info(f'Finished fetching all Wikipedia links for all museums from {MOST_VISITED_MUSEUMS_PAGE_NAME}')
     return museum_wiki_pages
