@@ -9,7 +9,7 @@ log = get_logger()
 MOST_VISITED_MUSEUMS_PAGE_NAME = 'List_of_most-visited_museums'
 
 
-def create_museum_dataframe() -> pd.DataFrame():
+def create_museum_dataframe() -> pd.DataFrame:
     '''
     Create museum dataframe which contains all museum characters.
 
@@ -68,7 +68,7 @@ def fetch_most_visited_museum_list() -> list:
     return museum_wiki_pages
 
 
-def most_visited_museum_to_dataframe(wiki_links: str) -> pd.DataFrame():
+def most_visited_museum_to_dataframe(wiki_links: str) -> pd.DataFrame:
     '''
     Fetch museum basic info from the museum table on the main wikipedia page, and convert the data to a dataframe.
 

@@ -1,5 +1,5 @@
-BeautifulSoup4
-wikipedia
-pandas
-scikit-learn
-lxml
+BeautifulSoup4 == 4.9.3
+wikipedia == 1.4.0
+pandas == 1.2.2
+scikit-learn == 0.24.1
+lxml == 4.6.2

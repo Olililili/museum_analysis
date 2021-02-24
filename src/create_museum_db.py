@@ -21,7 +21,7 @@ CREATE_MUSEUM_TABLE_SQL = '''CREATE TABLE museum (
   FOREIGN KEY(city_id) REFERENCES city(id));'''
 
 
-def build_museum_db(museum_all_data_df: pd.DataFrame()) -> None:
+def build_museum_db(museum_all_data_df: pd.DataFrame) -> None:
     '''
     Build a database for museum character data.
 
@@ -38,7 +38,7 @@ def build_museum_db(museum_all_data_df: pd.DataFrame()) -> None:
     log.info('Successfully created museum_analysis db and closed db connection.')
 
 
-def prepare_df_for_db_creat(museum_all_data_df: pd.DataFrame()):
+def prepare_df_for_db_creat(museum_all_data_df: pd.DataFrame):
     '''
     Prepare dataframes for creating database tables.
 
@@ -79,7 +79,7 @@ def prepare_df_for_db_creat(museum_all_data_df: pd.DataFrame()):
     return city_df_for_sql, museum_df_for_sql
 
 
-def create_db(city_df_for_sql: pd.DataFrame(), museum_df_for_sql: pd.DataFrame()) -> None:
+def create_db(city_df_for_sql: pd.DataFrame, museum_df_for_sql: pd.DataFrame) -> None:
     '''
     Create museum database.
 

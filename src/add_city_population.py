@@ -7,7 +7,7 @@ log = get_logger()
 WORLD_CITIES_POPULATION_FILE_PATH = '../doc/worldcities.csv'
 
 
-def add_city_population_to_museum(museum_all_data_df: pd.DataFrame()) -> pd.DataFrame():
+def add_city_population_to_museum(museum_all_data_df: pd.DataFrame) -> pd.DataFrame:
     '''
     Add city, population and country to the main museum dataframe.
 
@@ -24,7 +24,7 @@ def add_city_population_to_museum(museum_all_data_df: pd.DataFrame()) -> pd.Data
     return museum_all_data_df
 
 
-def fetch_world_cities_df() -> pd.DataFrame():
+def fetch_world_cities_df() -> pd.DataFrame:
     '''
     Fetch city, coutry and population data from the world cities csv file.
 

@@ -9,7 +9,7 @@ from src.log_handler import get_logger
 log = get_logger()
 
 
-def clean_museum_character_data(df: pd.DataFrame()) -> pd.DataFrame():
+def clean_museum_character_data(df: pd.DataFrame) -> pd.DataFrame:
     '''
     Clean museum characters and only leave main characters for analysis.
 
@@ -40,7 +40,7 @@ def clean_museum_character_data(df: pd.DataFrame()) -> pd.DataFrame():
     return df
 
 
-def reduce_columns_with_most_nan(df: pd.DataFrame()) -> pd.DataFrame():
+def reduce_columns_with_most_nan(df: pd.DataFrame) -> pd.DataFrame:
     '''
     Reduce columns in the dataframe which contains more than 90% of NaN value
 
@@ -68,7 +68,7 @@ def clean_established(value: Union[int, str]) -> str:
     return str(re.match(r'.*([1-2][0-9]{3})', value).group(1))
 
 
-def one_hot_encoding_museum_type(values: pd.DataFrame()) -> Tuple[int, int, int, int, int]:
+def one_hot_encoding_museum_type(values: pd.DataFrame) -> Tuple[int, int, int, int, int]:
     '''
     Apply one hot encoding for Type column, separate the Type column to 5 different columns:
     is_art_museum, is_history_museum, is_natural_museum, is_culture_museum, is_science_museum

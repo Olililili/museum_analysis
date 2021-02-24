@@ -43,7 +43,7 @@ class DatabaseOperations:
             log.error(f'SQLite error while executing query: {query}, error message: {e}.')
         return self.cursor
 
-    def df_to_db_table(self, df: pd.DataFrame(), table_name: str) -> None:
+    def df_to_db_table(self, df: pd.DataFrame, table_name: str) -> None:
         '''
         Convert dataframe to database table.
 

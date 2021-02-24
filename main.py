@@ -10,7 +10,7 @@ from src.log_handler import get_logger
 log = get_logger()
 
 
-def fetch_museum_data() -> pd.DataFrame():
+def fetch_museum_data() -> pd.DataFrame:
     '''
     Fetch all museum data from wikipedia page.
 
@@ -23,7 +23,7 @@ def fetch_museum_data() -> pd.DataFrame():
     return museum_all_data_df
 
 
-def build_database(museum_all_data_df: pd.DataFrame()) -> pd.DataFrame():
+def build_database(museum_all_data_df: pd.DataFrame) -> pd.DataFrame:
     '''
     Build museum_analysis database.
 
@@ -34,7 +34,7 @@ def build_database(museum_all_data_df: pd.DataFrame()) -> pd.DataFrame():
     build_museum_db(museum_all_data_df)
 
 
-def correlate_population_and_influx_of_visitors(museum_all_data_df: pd.DataFrame()) -> pd.DataFrame():
+def correlate_population_and_influx_of_visitors(museum_all_data_df: pd.DataFrame) -> pd.DataFrame:
     '''
     Correlate city population and the influx of visitors of the museums.
 

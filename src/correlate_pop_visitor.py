@@ -11,7 +11,7 @@ from typing import Tuple
 log = get_logger()
 
 
-def correlate_population_visitors(museum_all_data_df: pd.DataFrame()) -> None:
+def correlate_population_visitors(museum_all_data_df: pd.DataFrame) -> None:
     '''
     Correlate the city population and the influx of visitors.
 
@@ -54,7 +54,7 @@ def correlate_population_visitors(museum_all_data_df: pd.DataFrame()) -> None:
              f'Root mean squared error: {root_mean_squared_error}')
 
 
-def prepare_train_test_set(museum_all_data_df: pd.DataFrame()):
+def prepare_train_test_set(museum_all_data_df: pd.DataFrame):
     '''
     Prepare dataset for training and testing.
 
@@ -73,13 +73,13 @@ def prepare_train_test_set(museum_all_data_df: pd.DataFrame()):
     return x_train, x_test, y_train, y_test
 
 
-def build_linear_reg_model(x_train: pd.DataFrame(), y_train: pd.DataFrame()) -> RegressorMixin:
+def build_linear_reg_model(x_train: pd.DataFrame, y_train: pd.DataFrame) -> RegressorMixin:
     model = LinearRegression()
     model.fit(x_train, y_train)
     return model
 
 
-def model_prediction(model: RegressorMixin, x_test: pd.DataFrame()) -> RegressorMixin:
+def model_prediction(model: RegressorMixin, x_test: pd.DataFrame) -> RegressorMixin:
     predictions = model.predict(x_test)
     return predictions
 
@@ -100,7 +100,7 @@ def calculate_pearson_correlation_coefficient(linear_reg_coef: float, museum_all
     return correlation_coefficient
 
 
-def calculate_performance_metrics(y_test: pd.DataFrame(), predictions: RegressorMixin) -> Tuple[float, float, float]:
+def calculate_performance_metrics(y_test: pd.DataFrame, predictions: RegressorMixin) -> Tuple[float, float, float]:
     mean_absolute_error = metrics.mean_absolute_error(y_test, predictions)
     mean_squared_error = metrics.mean_squared_error(y_test, predictions)
     root_mean_squared_error = np.sqrt(metrics.mean_squared_error(y_test, predictions))
